@@ -4,11 +4,26 @@ import moment from 'moment/moment'
 import { Link } from 'react-router-dom'
 
 
-const Card = ({ data, trending, index }) => {
+const Card = ({ data, trending, index, media_type }) => {
 	const imageURL = useSelector(state => state.movieData.imageURL)
 
+	const mediaType = data.media_type ?? media_type
+
 	return (
-		<Link to={'/' + data.media_type + '/' + data.id} className='w-full max-w-[230px] min-w-[230px] rounded h-80 block overflow-hidden relative hover:scale-110 transition-all '>
+		<Link to={'/' + mediaType + '/' + data.id} className='w-full max-w-[230px] min-w-[230px] rounded h-80 block overflow-hidden relative hover:scale-110 transition-all '>
+
+			{
+				data?.poster_path ? (
+					<img
+						src={imageURL + data?.poster_path}
+					/>
+				) : (
+					<div className='flex items-center justify-center w-full h-full bg-neutral-800'>
+						No image found
+					</div>
+				)
+			}
+
 			<img
 				src={imageURL + data?.poster_path}
 			/>
