@@ -14,8 +14,8 @@ const DetailsPage = () => {
   const imageURL = useSelector(state => state.movieData.imageURL)
   const { data } = useFetchDetail(`/${params?.explore}/${params?.id}`)
   const { data: castData } = useFetchDetail(`/${params?.explore}/${params?.id}/credits`)
-  const {data: similarData} = useFetch(`/${params?.explore}/${params?.id}/similar`)
-  const {data: recommendationsData} = useFetch(`/${params?.explore}/${params?.id}/recommendations`)
+  const { data: similarData } = useFetch(`/${params?.explore}/${params?.id}/similar`)
+  const { data: recommendationsData } = useFetch(`/${params?.explore}/${params?.id}/recommendations`)
   const [playVideo, setPlayVideo] = useState(false)
   const [playVideoId, setPlayVideoId] = useState('')
 
@@ -65,16 +65,20 @@ const DetailsPage = () => {
 
           <div className='flex items-center gap-4'>
             <p>
-              Rating : {Number(data.vote_average).toFixed(1)}+
+              Rating : {Number(data.vote_average).toFixed(1) || 'N/A'}+
             </p>
             <span>|</span>
             <p>
-              View : {Number(data.vote_count).toFixed(0)}
+              View : {Number(data.vote_count).toFixed(0) || 'N/A'}
             </p>
             <span>|</span>
-            <p>
-              Duration : {duration[0]}h {duration[1] * 6}m
-            </p>
+            {Array.isArray(duration) && duration.length === 2 && !isNaN(duration[0]) && !isNaN(duration[1]) ? (
+              <p>
+                Duration: {Number(duration[0])}h {Number(duration[1] * 6)}m
+              </p>
+            ) : (
+              <p>Duration: N/A</p>
+            )}
           </div>
 
           <Divider />
@@ -129,7 +133,7 @@ const DetailsPage = () => {
             {
               castData?.cast?.filter((star) => star.profile_path).map((starCast) => {
                 return (
-                  <div key={starCast.id+"star"}>
+                  <div key={starCast.id + "star"}>
                     <div>
                       <img
                         src={imageURL + starCast?.profile_path}
@@ -148,17 +152,17 @@ const DetailsPage = () => {
       </div>
 
       <div>
-        <HorizontalScrollCards data={similarData} heading={'Similar ' + params?.explore} media_type={params?.explore}/>
-        <HorizontalScrollCards data={recommendationsData} heading={'Recommendation ' + params?.explore} media_type={params?.explore}/>
+        <HorizontalScrollCards data={similarData} heading={'Similar ' + params?.explore} media_type={params?.explore} />
+        <HorizontalScrollCards data={recommendationsData} heading={'Recommendation ' + params?.explore} media_type={params?.explore} />
       </div>
 
       {
         playVideo &&
-        <VideoPlay data={playVideoId} close={() => setPlayVideo(false)} media_type={params?.explore}/>
+        <VideoPlay data={playVideoId} close={() => setPlayVideo(false)} media_type={params?.explore} />
       }
 
 
-    </div>
+    </div >
   )
 }
 
