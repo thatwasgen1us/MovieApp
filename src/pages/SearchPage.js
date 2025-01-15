@@ -9,11 +9,13 @@ const SearchPage = () => {
   const [page, setPage] = useState(1)
   const navigate = useNavigate()
 
+  const query = location?.search?.slice(3)
+
   const fetchData = async () => {
     try {
       const response = await axios.get(`/search/multi`, {
         params: {
-          query: location?.search?.slice(3),
+          query: query,
           page: page
         }
       })
@@ -29,9 +31,12 @@ const SearchPage = () => {
   }
 
   useEffect(() => {
-    setPage(1)
-    setData([])
-    fetchData()
+    if (query) {
+      setPage(1)
+      setData([])
+      fetchData()
+    }
+
   }, [location?.search])
 
   const handelScroll = () => {
@@ -41,7 +46,9 @@ const SearchPage = () => {
   }
 
   useEffect(() => {
-    fetchData()
+    if (query) {
+      fetchData()
+    }
   }, [page])
 
   useEffect(() => {
@@ -57,6 +64,7 @@ const SearchPage = () => {
           placeholder='Search here...'
           onChange={(e) => navigate(`/search?q=${e.target.value}`)}
           className='w-full px-4 py-1 text-lg bg-white rounded-full'
+          value={query?.split('%20')?.join(' ')}
         />
       </div>
 

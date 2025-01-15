@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 const BannerHome = () => {
 	const bannerData = useSelector(state => state.movieData.bannerData)
@@ -9,7 +10,7 @@ const BannerHome = () => {
 
 	const handleNext = () => {
 		if (currentImage < bannerData.length - 1) {
-			setCurrentImage(preve => (preve + 1) % (bannerData.length - 1))
+			setCurrentImage(preve => (preve + 1))
 		}
 	}
 
@@ -29,7 +30,7 @@ const BannerHome = () => {
 		}, 4000)
 
 		return () => clearInterval(interval)
-	}, [bannerData, imageURL])
+	}, [bannerData, imageURL, currentImage])
 
 	return (
 		<section className='w-full h-full'>
@@ -72,9 +73,11 @@ const BannerHome = () => {
 											<span>|</span>
 											<p>View: {Number(data.popularity).toFixed(0)} </p>
 										</div>
-										<button className='px-4 py-2 mt-4 font-bold text-black transition-all bg-white rounded shadow-md hover:bg-gradient-to-l from-red-700 to-orange-500 hover:scale-105'>
-											Play Now
-										</button>
+										<Link to={'/'+ data?.media_type + '/' + data.id}>
+											<button className='px-4 py-2 mt-4 font-bold text-black transition-all bg-white rounded shadow-md hover:bg-gradient-to-l from-red-700 to-orange-500 hover:scale-105'>
+												Play Now
+											</button>
+										</Link>
 									</div>
 								</div>
 

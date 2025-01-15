@@ -2,7 +2,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 
 const useFetchDetail = (endpoint) => {
-	const [data, setData] = useState()
+	const [data, setData] = useState([])
 	const [loading, setLoading] = useState(false)
 
 	const fetchData = async () => {
