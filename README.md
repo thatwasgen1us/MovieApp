@@ -3,6 +3,8 @@
   <img src="https://github.com/user-attachments/assets/89d8bc8c-57ca-467f-86c3-2eef2c2e2c99" />
 </a>
 
+If you are from Russia, you need a <a href="https://chromewebstore.google.com/detail/%D0%B1%D0%B5%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D0%BD%D1%8B%D0%B9-vpn-%D0%B4%D0%BB%D1%8F-chrome/majdfhpaihoncoakbjgbdhglocklcgno">VPN</a> to view the site
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
